@@ -1,0 +1,19 @@
+version: '3'
+services:
+  app:
+    container_name: vash_domophone
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+
+  db:
+    container_name: mysql_db
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: edo515
+      MYSQL_DATABASE: todos
+    ports:
+      - "3306:3306" 
+    volumes:
+      - ./mysql_data:/var/lib/mysql
