@@ -28,7 +28,7 @@ export class TodoRouter {
     createNewTask = async(req: Request, res: Response):Promise<void> => {
         const data = req.body
         console.log(data)
-        const resp = await this.service.createTodo(data.title, data.body, data.category_id)
+        const resp = await this.service.createTodo(data.title, data.body, data.category_id, data.completed)
         res.send(resp)
     }
     getTaskBtId = async(req: Request, res: Response):Promise<void> => {

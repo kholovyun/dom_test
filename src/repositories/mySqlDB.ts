@@ -6,10 +6,11 @@ export default class MySqlDB {
     public client: any
     constructor() {
         this.client =  mysql.createConnection({
-            host: '127.0.0.1',
-            user: 'root',
-            password: 'edo515',
-            database: 'todos'
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME
+
         }).promise();
     }
     public close = async(): Promise<void> => {

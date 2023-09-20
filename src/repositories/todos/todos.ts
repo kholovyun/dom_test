@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-import { mySqlDB } from "../mySqlDB";
+import { mySqlDB } from "../mySqlDB";;
 dotenv.config()
 
 export default class TodoService {
@@ -25,16 +25,18 @@ export default class TodoService {
             const todo = await this.client.query(
                 'SELECT * FROM `list` WHERE id = ?' , [id]
               );
-              console.log(todo)
-              return todo[0]
+
+            if(!todo[0]) throw new Error("No task found")
+
+            return todo[0]
         } catch (error) {
             console.log(error)
         }
     }
-    public createTodo = async(title: string, body: string, category_id: string): Promise<any> => {
+    public createTodo = async(title: string, body: string, category_id: string, completed: boolean): Promise<any> => {
         try {
             const todo = this.client.query(
-                `INSERT INTO list (title, body, category_id) VALUES (?, ?, ?)`, [title, body, category_id]
+                `INSERT INTO list (title, body, category_id, completed) VALUES (?, ?, ?, ?)`, [title, body, category_id, completed]
               );
             return todo
         } catch (error) {
