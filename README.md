@@ -1,44 +1,42 @@
 # Install project
 
-### To run project use  npm run dev 
+### Склонируйте проект
 
-### Endponts
- ##### GET /artists - get artists list
+git clone <project link>
+
+### Поменяйте настройки .env файла на ваши, пример в проекте 
+
+
+ ##### Также необходимо поменять данные в docker-compose.yml на свои возможно еще и context
+
+  environment:
+      APP_PORT: 8000
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: edo515
+      DB_NAME: todos
  
- - response:  {result : all artists [] , message: string}
+ DB_HOST должен остаться db и в env тоже , если запускаться через докер
+
+#####  POST /tasks - Добавить категорию
+ - req.body: {name : string} 
+
+ Обязательно перед созданием задачи необходимо добавить несколько категорий, чтобы проект не упал в контейнере так как без категории не создается задача 
+
+#####  POST /tasks - Добавить задачу
+ - req.body: {title : string, body: string, category: categories.id (id категории), completed: boolean}
+
  
-#####  POST /artists - add artist
- - req.body: {name : string, image: File | string | undefined, info: string}
- - response:  {result : IArtist , message: string}
+##### GET /categories - все категории
  
-##### GET /albums - get albums (you can send GET/albums?artistID and get all albums of this artist)
- - response:  {result : all albums [] , message: string}
- 
-##### POST /albums - add album
- - req.body: {artist : ARTIST ID , image: File | string | undefined, name: string, releaseYear: string}
- - response:  {result : IAlbum , message: string}
+##### get /tasks - все задачи
 
-##### GET /albums/:id - get info aabout album by sending its ID as params
-- response:  {result : album , message: string}
-##### GET /tracks - get all Tracks (u can send a GET /tracks?albumID and get all tracks witch belongs to sended album)
-- response:  {result : AllTracks , message: string}
+##### GET /tasks/:id - задача  по id
 
-##### POST /tracks - add track
- - req.body: {name : string, duration:  string, album: AlbumID}
- - response:  {result : track , message: string}
+##### PUT /tracks/:id - редактирование
+ - req.body: {title : string, body: string, category: categories.id (id категории), completed: boolean}
 
-##### POST /users - register new user 
-- req.body: {username : string, password:  string}
- - response:  {result : user , message: string}
 
-##### POST /users/sessions - user login 
-- req.body: {username : string, password:  string}
- - response:  {result : user , message: string} if username and password right
-
-##### POST /track_history 
-- req.body: {track_id : string}
-- header - Authorization = token
--  response:  {result : user , message: string}
-
+для локального запуска в env файле нужно поменять DB_HOST с db на localhost
 
 
